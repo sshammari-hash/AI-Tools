@@ -321,13 +321,78 @@
     border-top: 1px solid rgba(167,224,197,0.2);
   }
 
+  /* ===== TOOL LINKS ===== */
+  .tool-chip a {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 3px;
+  }
+  .tool-chip a::after {
+    content: '↗';
+    font-size: 9px;
+    opacity: 0.55;
+    line-height: 1;
+  }
+  .tool-chip a:hover { opacity: 0.8; text-decoration: underline; }
+
+  /* ===== PDF BAR ===== */
+  .pdf-bar {
+    position: sticky; top: 0; z-index: 999;
+    background: white;
+    border-bottom: 2px solid var(--green3);
+    padding: 10px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(10,53,62,0.08);
+  }
+  .pdf-bar-label {
+    font-size: 13px; color: var(--muted); font-weight: 600;
+  }
+  .pdf-bar-label span { color: var(--green); font-weight: 800; }
+  .btn-pdf {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--dark); color: white;
+    border: none; border-radius: 22px;
+    padding: 9px 22px;
+    font-size: 14px; font-weight: 700;
+    font-family: 'Cairo', 'Arial', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 3px 12px rgba(10,53,62,0.2);
+  }
+  .btn-pdf:hover {
+    background: var(--green2);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(43,182,115,0.3);
+  }
+
+  /* ===== PRINT / PDF STYLES ===== */
   @media print {
-    body { background: white; }
-    .stage-card:hover { transform: none; }
+    .pdf-bar { display: none !important; }
+    body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .stage-card { box-shadow: none !important; transform: none !important; }
+    .page-header, .page-footer, .node-circle, .stage-card, .key-note {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+    .timeline::before { display: none; }
+    .stage-row { break-inside: avoid; page-break-inside: avoid; }
+    .connector { height: 18px; }
+    .tool-chip a::after { display: none; }
+    @page { size: A3 portrait; margin: 12mm 10mm; }
   }
 </style>
 </head>
 <body>
+
+<!-- ===== PDF DOWNLOAD BAR ===== -->
+<div class="pdf-bar">
+  <div class="pdf-bar-label">دليل استرشادي — <span>مركز التميز البحثي في الذكاء الاصطناعي وعلم البيانات</span></div>
+  <button class="btn-pdf" onclick="window.print()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    تحميل كـ PDF
+  </button>
+</div>
 
 <!-- ===== HEADER ===== -->
 <div class="page-header">
@@ -384,11 +449,11 @@
         <div class="stage-title">💭 توليد الأفكار وتحديد المشكلة البحثية</div>
         <p class="section-label">الأدوات المقترحة &nbsp;<span class="level-pill pill-caution">بحذر</span></p>
         <div class="tools-grid">
-          <span class="tool-chip chip-purple">ChatGPT</span>
-          <span class="tool-chip chip-purple">Claude</span>
-          <span class="tool-chip chip-purple">Gemini</span>
-          <span class="tool-chip chip-green">Elicit</span>
-          <span class="tool-chip chip-teal">ResearchRabbit</span>
+          <span class="tool-chip chip-purple"><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a></span>
+          <span class="tool-chip chip-purple"><a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></span>
+          <span class="tool-chip chip-purple"><a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a></span>
+          <span class="tool-chip chip-green"><a href="https://elicit.com" target="_blank" rel="noopener">Elicit</a></span>
+          <span class="tool-chip chip-teal"><a href="https://www.researchrabbit.ai" target="_blank" rel="noopener">ResearchRabbit</a></span>
         </div>
         <hr class="section-rule">
         <div class="ai-note">استكشاف مجالات بحثية محتملة، طرح أسئلة استثارية، والبحث الأولي عن الفجوات في الأدبيات.</div>
@@ -420,15 +485,15 @@
         <div class="stage-title">📚 المسح الأدبي ومراجعة الأدبيات</div>
         <p class="section-label">الأدوات المقترحة &nbsp;<span class="level-pill pill-allowed">مسموح</span></p>
         <div class="tools-grid">
-          <span class="tool-chip chip-green">Elicit</span>
-          <span class="tool-chip chip-green">Semantic Scholar</span>
-          <span class="tool-chip chip-teal">ResearchRabbit</span>
-          <span class="tool-chip chip-teal">Connected Papers</span>
-          <span class="tool-chip chip-soft">Google Scholar</span>
-          <span class="tool-chip chip-green">Scite</span>
-          <span class="tool-chip chip-dark">NotebookLM</span>
-          <span class="tool-chip chip-soft">TLDRthis</span>
-          <span class="tool-chip chip-soft">Notably</span>
+          <span class="tool-chip chip-green"><a href="https://elicit.com" target="_blank" rel="noopener">Elicit</a></span>
+          <span class="tool-chip chip-green"><a href="https://www.semanticscholar.org" target="_blank" rel="noopener">Semantic Scholar</a></span>
+          <span class="tool-chip chip-teal"><a href="https://www.researchrabbit.ai" target="_blank" rel="noopener">ResearchRabbit</a></span>
+          <span class="tool-chip chip-teal"><a href="https://www.connectedpapers.com" target="_blank" rel="noopener">Connected Papers</a></span>
+          <span class="tool-chip chip-soft"><a href="https://scholar.google.com" target="_blank" rel="noopener">Google Scholar</a></span>
+          <span class="tool-chip chip-green"><a href="https://scite.ai" target="_blank" rel="noopener">Scite</a></span>
+          <span class="tool-chip chip-dark"><a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a></span>
+          <span class="tool-chip chip-soft"><a href="https://tldrthis.com" target="_blank" rel="noopener">TLDRthis</a></span>
+          <span class="tool-chip chip-soft"><a href="https://www.notably.ai" target="_blank" rel="noopener">Notably</a></span>
         </div>
         <hr class="section-rule">
         <div class="ai-note">جمع المصادر وتلخيصها باستخدام تقنية RAG — Scite للتحقق من جودة الاستشهادات ودعمها أو تعارضها — NotebookLM لتنظيم الملاحظات البحثية — TLDRthis وNotably لتلخيص المقالات الطويلة سريعاً.</div>
@@ -460,8 +525,8 @@
         <div class="stage-title">🔬 تصميم منهجية البحث</div>
         <p class="section-label">الأدوات المقترحة &nbsp;<span class="level-pill pill-caution">بحذر محدود</span></p>
         <div class="tools-grid">
-          <span class="tool-chip chip-purple">ChatGPT</span>
-          <span class="tool-chip chip-purple">Claude</span>
+          <span class="tool-chip chip-purple"><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a></span>
+          <span class="tool-chip chip-purple"><a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></span>
         </div>
         <hr class="section-rule">
         <div class="ai-note">الاستفسار عن مناهج بحثية مناسبة لنوع محدد من الدراسات، ومقارنتها للاختيار الأنسب — للاسترشاد فقط.</div>
@@ -493,10 +558,10 @@
         <div class="stage-title">📊 جمع البيانات وتحليلها</div>
         <p class="section-label">الأدوات المقترحة &nbsp;<span class="level-pill pill-caution">بحذر</span></p>
         <div class="tools-grid">
-          <span class="tool-chip chip-teal">Julius AI</span>
-          <span class="tool-chip chip-purple">ChatGPT Code</span>
-          <span class="tool-chip chip-amber">ATLAS.ti AI</span>
-          <span class="tool-chip chip-teal">NVivo AI</span>
+          <span class="tool-chip chip-teal"><a href="https://julius.ai" target="_blank" rel="noopener">Julius AI</a></span>
+          <span class="tool-chip chip-purple"><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT Code</a></span>
+          <span class="tool-chip chip-amber"><a href="https://atlasti.com" target="_blank" rel="noopener">ATLAS.ti AI</a></span>
+          <span class="tool-chip chip-teal"><a href="https://lumivero.com/products/nvivo/" target="_blank" rel="noopener">NVivo AI</a></span>
         </div>
         <hr class="section-rule">
         <div class="ai-note">كتابة أكواد التحليل الإحصائي (Python/R)، تصوير البيانات بيانياً، والمساعدة في الترميز الأولي للبيانات النوعية.</div>
@@ -528,12 +593,12 @@
         <div class="stage-title">✍️ كتابة الورقة العلمية</div>
         <p class="section-label">الأدوات المقترحة &nbsp;<span class="level-pill pill-caution">بحذر + إفصاح</span></p>
         <div class="tools-grid">
-          <span class="tool-chip chip-amber">Grammarly</span>
-          <span class="tool-chip chip-amber">LanguageTool</span>
-          <span class="tool-chip chip-amber">Writefull</span>
-          <span class="tool-chip chip-purple">Jenni</span>
-          <span class="tool-chip chip-purple">ChatGPT</span>
-          <span class="tool-chip chip-purple">Claude</span>
+          <span class="tool-chip chip-amber"><a href="https://www.grammarly.com" target="_blank" rel="noopener">Grammarly</a></span>
+          <span class="tool-chip chip-amber"><a href="https://languagetool.org" target="_blank" rel="noopener">LanguageTool</a></span>
+          <span class="tool-chip chip-amber"><a href="https://writefull.com" target="_blank" rel="noopener">Writefull</a></span>
+          <span class="tool-chip chip-purple"><a href="https://jenni.ai" target="_blank" rel="noopener">Jenni</a></span>
+          <span class="tool-chip chip-purple"><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a></span>
+          <span class="tool-chip chip-purple"><a href="https://claude.ai" target="_blank" rel="noopener">Claude</a></span>
         </div>
         <hr class="section-rule">
         <div class="ai-note">Writefull وGrammarly لتحسين الصياغة الأكاديمية ودقتها — Jenni لمساعدة الباحث في استكمال الجمل العلمية مع بقاء الأفكار الأصيلة للباحث — ChatGPT وClaude لضبط التنسيق فقط.</div>
@@ -564,12 +629,12 @@
         <div class="stage-title">🔍 المراجعة والتدقيق اللغوي</div>
         <p class="section-label">الأدوات المقترحة &nbsp;<span class="level-pill pill-allowed">مسموح</span></p>
         <div class="tools-grid">
-          <span class="tool-chip chip-amber">Grammarly</span>
-          <span class="tool-chip chip-amber">LanguageTool</span>
-          <span class="tool-chip chip-amber">Writefull</span>
-          <span class="tool-chip chip-green">Scite</span>
-          <span class="tool-chip chip-green">iThenticate</span>
-          <span class="tool-chip chip-pink">Turnitin AI</span>
+          <span class="tool-chip chip-amber"><a href="https://www.grammarly.com" target="_blank" rel="noopener">Grammarly</a></span>
+          <span class="tool-chip chip-amber"><a href="https://languagetool.org" target="_blank" rel="noopener">LanguageTool</a></span>
+          <span class="tool-chip chip-amber"><a href="https://writefull.com" target="_blank" rel="noopener">Writefull</a></span>
+          <span class="tool-chip chip-green"><a href="https://scite.ai" target="_blank" rel="noopener">Scite</a></span>
+          <span class="tool-chip chip-green"><a href="https://www.ithenticate.com" target="_blank" rel="noopener">iThenticate</a></span>
+          <span class="tool-chip chip-pink"><a href="https://www.turnitin.com" target="_blank" rel="noopener">Turnitin AI</a></span>
         </div>
         <hr class="section-rule">
         <div class="ai-note">Writefull للتدقيق الأكاديمي المتخصص — Scite للتحقق من جودة المراجع ومدى دعمها للادعاءات — iThenticate وTurnitin لفحص الاستلال والتشابه.</div>
@@ -601,11 +666,11 @@
         <div class="stage-title">📤 اختيار المجلة والنشر العلمي</div>
         <p class="section-label">الأدوات المقترحة &nbsp;<span class="level-pill pill-allowed">مسموح</span></p>
         <div class="tools-grid">
-          <span class="tool-chip chip-green">Elicit</span>
-          <span class="tool-chip chip-green">Semantic Scholar</span>
-          <span class="tool-chip chip-soft">Scopus AI</span>
-          <span class="tool-chip chip-teal">typeset.io</span>
-          <span class="tool-chip chip-purple">ChatGPT</span>
+          <span class="tool-chip chip-green"><a href="https://elicit.com" target="_blank" rel="noopener">Elicit</a></span>
+          <span class="tool-chip chip-green"><a href="https://www.semanticscholar.org" target="_blank" rel="noopener">Semantic Scholar</a></span>
+          <span class="tool-chip chip-soft"><a href="https://www.scopus.com" target="_blank" rel="noopener">Scopus AI</a></span>
+          <span class="tool-chip chip-teal"><a href="https://typeset.io" target="_blank" rel="noopener">typeset.io</a></span>
+          <span class="tool-chip chip-purple"><a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a></span>
         </div>
         <hr class="section-rule">
         <div class="ai-note">typeset.io لتنسيق الورقة وفق متطلبات المجلة آلياً واقتراح المجلات الملائمة — Elicit وSemantic Scholar للبحث عن وجهة النشر — ChatGPT لتحضير رسالة التغطية مع مراجعة كاملة.</div>
